@@ -1,0 +1,18 @@
+# Install AWS clients
+# ---
+- hosts: '{{inventory}}'
+  gather_facts: True
+  vars_files:
+    - group_vars/all.yml
+  roles:
+    - install-aws-clients
+
+
+- hosts: '{{inventory}}'
+  gather_facts: True
+  vars_files:
+    - group_vars/all.yml
+  roles:
+    - install-dependences
+
+  

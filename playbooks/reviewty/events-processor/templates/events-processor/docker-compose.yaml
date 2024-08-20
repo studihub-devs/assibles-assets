@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  events-processor:
+    image: 339126146861.dkr.ecr.ap-southeast-1.amazonaws.com/reviewty/events-processor:latest #
+    deploy:
+      mode: replicated
+      replicas: 5
+    env_file:
+      - .env-prod
+    volumes:
+      - type: bind
+        source: ./firebase-adminsdk.json
+        target: /app/firebase-adminsdk.json
+        read_only: true
+

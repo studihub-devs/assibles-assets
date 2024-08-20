@@ -1,0 +1,14 @@
+- name: Install awscli   (state=present is optional)
+  apt:
+    name: awscli
+    state: present
+
+- name: Configure aws_secret_key
+  command: aws configure set aws_access_key_id '{{aws_secret_key}}'
+
+- name: Configure aws_secret_id
+  command: aws configure set  aws_secret_access_key '{{aws_access_key}}'
+
+- name: Configure region
+  command: aws configure set default.region  '{{aws_region}}'
+

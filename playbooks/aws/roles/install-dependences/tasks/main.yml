@@ -1,0 +1,15 @@
+# Install docker
+# ---
+# playbooks/aws/roles/install-dependences/tasks/main.yml
+- name: Install docker
+  shell: apt install -y docker
+  tags:
+    - install-dependences
+
+# Init docker swarm cluster
+# ---
+# playbooks/aws/roles/install-dependences/tasks/main.yml
+- name: Init docker swarm cluster
+  shell: docker swarm init
+  tags:
+    - install-dependences

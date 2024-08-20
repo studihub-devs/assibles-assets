@@ -1,0 +1,38 @@
+# Login to ecr registry on docker 
+- name: Login to ecr
+  shell: aws ecr get-login-password --region ap-southeast-1 | sudo docker login --username AWS --password-stdin '{{aws_ecr_url}}'
+  tags:
+    - deploy-events-processor
+
+# Pull docker image
+- name: Pull docker image
+  shell: docker pull 339126146861.dkr.ecr.ap-southeast-1.amazonaws.com/reviewty/events-processor:latest
+  tags:
+    - deploy-events-processor
+
+# Pull docker image
+- name: Pull docker image
+  shell: docker pull 339126146861.dkr.ecr.ap-southeast-1.amazonaws.com/reviewty/firebase-worker:latest
+  tags:
+    - deploy-events-processor
+
+
+# Copy templates folder to the remote host
+- name: Copy events-processor folder to the remote host
+  copy:
+    src: ./templates/events-processor
+    dest: /app
+  tags:
+    - deploy-events-processor
+
+# Remove old docker service 
+- name: Remove old service
+  shell: docker stack rm events-processor-service
+  tags:
+    - deploy-events-processor
+
+# Run run-prod.sh on the remote host
+- name: Run service
+  shell: cd /app/events-processor & docker stack deploy --compose-file docker-compose.yaml  events-processor-service
+  tags:
+    - deploy-events-processor
