@@ -1,5 +1,5 @@
 
-# Use ansible to test a host
+# Use ansible
 ansible vtrtest -m ping -i host.cfg
 
 # Create a user
